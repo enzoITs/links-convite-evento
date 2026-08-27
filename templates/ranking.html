@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block titulo %}Ranking{% endblock %}
+{% block conteudo %}
+<section class="cartao">
+  <div class="cabecalho-secao">
+    <h2>Ranking de cliques</h2>
+    <div class="acoes">
+      <button id="btn-atualizar" class="destaque">Atualizar cliques</button>
+      <a class="botao secundario" href="/api/exportar">Exportar CSV</a>
+    </div>
+  </div>
+  <p class="ajuda" id="consultado-em">Carregando último ranking salvo...</p>
+
+  <table id="tabela-ranking">
+    <thead>
+      <tr>
+        <th><input type="checkbox" id="marcar-todos" title="marcar todos"></th>
+        <th>#</th><th>Nome</th><th>Link</th><th>Cliques</th><th>Participação</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <p class="total" id="total-cliques"></p>
+</section>
+
+<section class="cartao" id="painel-comparacao" hidden>
+  <h2>Comparação lado a lado</h2>
+  <div id="cartoes-comparacao" class="comparacao"></div>
+</section>
+
+<section class="cartao">
+  <div class="cabecalho-secao">
+    <h2>Evolução no tempo</h2>
+    <div class="acoes">
+      <label class="inline">Período
+        <select id="dias">
+          <option value="7">7 dias</option>
+          <option value="14">14 dias</option>
+          <option value="30" selected>30 dias</option>
+          <option value="90">90 dias</option>
+        </select>
+      </label>
+      <button id="btn-serie" class="secundario">Carregar gráfico</button>
+    </div>
+  </div>
+  <p class="ajuda">
+    Cliques por dia, direto da API do Bitly. Marque funcionários na tabela acima para ver
+    só eles; clique na legenda para ligar ou desligar uma linha.
+  </p>
+  <div id="grafico"></div>
+  <div id="legenda" class="legenda"></div>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='ranking.js') }}"></script>{% endblock %}

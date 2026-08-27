@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block titulo %}Configuração{% endblock %}
+{% block conteudo %}
+<section class="cartao">
+  <h2>Configuração da campanha</h2>
+  <p class="ajuda">
+    Estes valores ficam em <code>config.json</code> e são usados tanto pela interface web
+    quanto pelos scripts de terminal. O token do Bitly não fica aqui: ele vem apenas da
+    variável de ambiente <code>BITLY_TOKEN</code>.
+  </p>
+
+  <form id="form-config">
+    <label>URL da página de inscrição (RSVP)
+      <input type="url" name="evento_url" value="{{ config.evento_url }}" required>
+    </label>
+
+    <div class="grade">
+      <label>utm_source
+        <input name="utm_source" value="{{ config.utm_source }}" required>
+      </label>
+      <label>utm_medium
+        <input name="utm_medium" value="{{ config.utm_medium }}" required>
+      </label>
+      <label>utm_campaign
+        <input name="utm_campaign" value="{{ config.utm_campaign }}" required>
+      </label>
+    </div>
+
+    <div class="grade">
+      <label>Domínio do link curto
+        <input name="bitly_domain" value="{{ config.bitly_domain }}">
+      </label>
+      <label>Prefixo do back-half
+        <input name="prefixo_keyword" value="{{ config.prefixo_keyword }}">
+      </label>
+    </div>
+
+    <label>group_guid da conta Bitly
+      <input name="bitly_group_guid" value="{{ config.bitly_group_guid }}" placeholder="deixe vazio para usar o grupo padrão">
+    </label>
+    <button type="button" class="secundario" id="btn-grupos">Buscar meus grupos</button>
+    <div id="lista-grupos" class="lista-grupos" hidden></div>
+
+    <p class="ajuda">
+      Back-half customizado (<code>bit.ly/evento-ana-souza</code>) só existe em planos pagos
+      do Bitly. Se a conta for gratuita, o sistema avisa e usa o sufixo aleatório
+      automaticamente &mdash; a contagem de cliques funciona igual.
+    </p>
+
+    <button type="submit">Salvar configuração</button>
+  </form>
+
+  <h3>Exemplo da URL gerada</h3>
+  <pre id="exemplo-url">{{ exemplo_url }}</pre>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='configuracao.js') }}"></script>{% endblock %}

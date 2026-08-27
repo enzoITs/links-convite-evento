@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block titulo %}Links de convite{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="topo">
+    <h1>Links de convite &mdash; evento</h1>
+    <nav>
+      <a href="/" class="{{ 'ativo' if request.path == '/' }}">Configuração</a>
+      <a href="/funcionarios" class="{{ 'ativo' if request.path == '/funcionarios' }}">Funcionários</a>
+      <a href="/ranking" class="{{ 'ativo' if request.path == '/ranking' }}">Ranking</a>
+    </nav>
+  </header>
+
+  {% if not token_presente %}
+  <div class="faixa aviso">
+    <strong>BITLY_TOKEN não definido.</strong>
+    As telas abrem, mas nenhuma chamada ao Bitly vai funcionar. Pare o servidor, rode
+    <code>export BITLY_TOKEN="seu_token"</code> e suba de novo com <code>python3 app.py</code>.
+  </div>
+  {% else %}
+  <div class="faixa ok">BITLY_TOKEN detectado no ambiente.</div>
+  {% endif %}
+
+  <div id="mensagem" class="faixa" hidden></div>
+
+  <main>
+    {% block conteudo %}{% endblock %}
+  </main>
+
+  <script src="{{ url_for('static', filename='comum.js') }}"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

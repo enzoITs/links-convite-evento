@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block titulo %}Funcionários{% endblock %}
+{% block conteudo %}
+<section class="cartao">
+  <h2>Adicionar funcionário</h2>
+  <form id="form-funcionario" class="linha-form">
+    <label>Nome
+      <input name="nome" id="campo-nome" placeholder="Ana Souza" required>
+    </label>
+    <label>Identificador (vai no utm_content)
+      <input name="identificador" id="campo-identificador" placeholder="ana-souza">
+    </label>
+    <button type="submit">Adicionar</button>
+  </form>
+  <p class="ajuda">
+    O identificador é sugerido a partir do nome e precisa ser único: ele é o que distingue
+    cada funcionário no Bitly e no GA4. Use letras minúsculas, números e hífens.
+  </p>
+</section>
+
+<section class="cartao">
+  <div class="cabecalho-secao">
+    <h2>Funcionários e links</h2>
+    <button id="btn-gerar" class="destaque">Gerar links faltantes</button>
+  </div>
+  <table id="tabela-funcionarios">
+    <thead>
+      <tr><th>Nome</th><th>Identificador</th><th>Link curto</th><th>Ações</th></tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <p class="ajuda">
+    Remover um funcionário aqui apaga a linha dos arquivos do projeto, mas <strong>não
+    destrói o link curto no Bitly</strong> &mdash; quem já recebeu o link continua conseguindo
+    abrir a página.
+  </p>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='funcionarios.js') }}"></script>{% endblock %}
